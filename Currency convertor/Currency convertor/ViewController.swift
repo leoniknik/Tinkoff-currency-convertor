@@ -194,7 +194,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForRequest = TimeInterval(5)
         configuration.timeoutIntervalForResource = TimeInterval(5)
-        let session = URLSession(configuration: configuration, delegate: self , delegateQueue: OperationQueue())
+        let session = URLSession(configuration: configuration)
         
         let dataTask = session.dataTask(with: url) {
             (dataReceived, response, error) in
