@@ -10,7 +10,9 @@ import UIKit
 
 class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate{
 
-
+    @IBOutlet weak var convertToLabel: UILabel!
+    @IBOutlet weak var selectCurrencyLabel: UILabel!
+    @IBOutlet weak var updateButton: UIBarButtonItem!
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var pickerFrom: UIPickerView!
     @IBOutlet weak var pickerTo: UIPickerView!
@@ -30,10 +32,20 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         
         self.activityIndicator.hidesWhenStopped = true
         
-        self.activityIndicator.startAnimating()
+        updateData()
+    }
+    
+    @IBAction func updatePressed(_ sender: UIBarButtonItem) {
+        updateData()
+    }
+
+    func updateData() {
+        currencies.removeAll()
         self.label.text = ""
         self.pickerFrom.isHidden = true
         self.pickerTo.isHidden = true
+        self.convertToLabel.isHidden = true
+        self.selectCurrencyLabel.isHidden = true
         
         self.retrieveListOfCurrencies() { [weak self] (value) in
             DispatchQueue.main.async(execute: {
@@ -43,6 +55,8 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
                     if strongSelf.currencies.count > 2 {
                         strongSelf.pickerFrom.isHidden = false
                         strongSelf.pickerTo.isHidden = false
+                        strongSelf.convertToLabel.isHidden = false
+                        strongSelf.selectCurrencyLabel.isHidden = false
                         strongSelf.pickerFrom.reloadAllComponents()
                         strongSelf.pickerTo.reloadAllComponents()
                         strongSelf.requestCurrentCurrencyRate()
@@ -50,9 +64,9 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
                 }
             })
         }
-        
-    }
 
+    }
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -64,13 +78,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         return self.currencies.count
     }
 
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if pickerView === pickerTo {
-            return self.currenciesExceptBase()[row]
-        }
-        return self.currencies[row]
-    }
-    
+
     func requestCurrencyRates(baseCurrency: String, parseHandler: @escaping(Data?, Error?) -> Void) {
 
         let url = URL(string: "https://api.fixer.io/latest?base=" + baseCurrency)!
@@ -230,5 +238,30 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         
         return value
     }
+
+    
+    func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
+        return self.view.frame.size.width
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+        return 44
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        let customView = Bundle.main.loadNibNamed("TBCurrencyPickerCell", owner: self, options: nil)?.first as? TBCurrencyPickerCell
+        var currency = ""
+        if pickerView === pickerTo {
+            currency = currenciesExceptBase()[row]
+        }
+        else {
+            currency = currencies[row]
+        }
+        let image = FlagManager.getFlagForCurrency(currency)
+        customView?.imageView.image = image
+        customView?.title.text = currency
+        return customView!
+    }
+    
 }
 

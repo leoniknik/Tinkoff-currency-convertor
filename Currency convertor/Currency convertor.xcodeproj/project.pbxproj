@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CA3B020F1F6C4511004C78C2 /* FlagKit.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA3B020E1F6C4511004C78C2 /* FlagKit.xcassets */; };
 		CA8E31E61F6AE64800BE0F53 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8E31E51F6AE64800BE0F53 /* AppDelegate.swift */; };
 		CA8E31E81F6AE64800BE0F53 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8E31E71F6AE64800BE0F53 /* ViewController.swift */; };
 		CA8E31EB1F6AE64800BE0F53 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA8E31E91F6AE64800BE0F53 /* Main.storyboard */; };
@@ -14,9 +15,13 @@
 		CA8E31F01F6AE64800BE0F53 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA8E31EE1F6AE64800BE0F53 /* LaunchScreen.storyboard */; };
 		CAA6236C1F6C054C00BE7F17 /* TBNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA6236B1F6C054C00BE7F17 /* TBNavigationController.swift */; };
 		CAA6236E1F6C063A00BE7F17 /* UIColor+TBColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA6236D1F6C063A00BE7F17 /* UIColor+TBColor.swift */; };
+		CAA623701F6C0C6200BE7F17 /* TBCurrencyPickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CAA6236F1F6C0C6200BE7F17 /* TBCurrencyPickerCell.xib */; };
+		CAA623721F6C107E00BE7F17 /* TBCurrencyPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA623711F6C107E00BE7F17 /* TBCurrencyPickerCell.swift */; };
+		CAA623741F6C37D300BE7F17 /* FlagManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA623731F6C37D300BE7F17 /* FlagManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CA3B020E1F6C4511004C78C2 /* FlagKit.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = FlagKit.xcassets; sourceTree = "<group>"; };
 		CA8E31E21F6AE64800BE0F53 /* Currency convertor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Currency convertor.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA8E31E51F6AE64800BE0F53 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CA8E31E71F6AE64800BE0F53 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -26,6 +31,9 @@
 		CA8E31F11F6AE64800BE0F53 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CAA6236B1F6C054C00BE7F17 /* TBNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TBNavigationController.swift; sourceTree = "<group>"; };
 		CAA6236D1F6C063A00BE7F17 /* UIColor+TBColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+TBColor.swift"; sourceTree = "<group>"; };
+		CAA6236F1F6C0C6200BE7F17 /* TBCurrencyPickerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TBCurrencyPickerCell.xib; sourceTree = "<group>"; };
+		CAA623711F6C107E00BE7F17 /* TBCurrencyPickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TBCurrencyPickerCell.swift; sourceTree = "<group>"; };
+		CAA623731F6C37D300BE7F17 /* FlagManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlagManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,10 +70,14 @@
 				CA8E31E71F6AE64800BE0F53 /* ViewController.swift */,
 				CA8E31E91F6AE64800BE0F53 /* Main.storyboard */,
 				CA8E31EC1F6AE64800BE0F53 /* Assets.xcassets */,
+				CA3B020E1F6C4511004C78C2 /* FlagKit.xcassets */,
 				CA8E31EE1F6AE64800BE0F53 /* LaunchScreen.storyboard */,
 				CA8E31F11F6AE64800BE0F53 /* Info.plist */,
 				CAA6236B1F6C054C00BE7F17 /* TBNavigationController.swift */,
 				CAA6236D1F6C063A00BE7F17 /* UIColor+TBColor.swift */,
+				CAA6236F1F6C0C6200BE7F17 /* TBCurrencyPickerCell.xib */,
+				CAA623711F6C107E00BE7F17 /* TBCurrencyPickerCell.swift */,
+				CAA623731F6C37D300BE7F17 /* FlagManager.swift */,
 			);
 			path = "Currency convertor";
 			sourceTree = "<group>";
@@ -130,6 +142,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA3B020F1F6C4511004C78C2 /* FlagKit.xcassets in Resources */,
+				CAA623701F6C0C6200BE7F17 /* TBCurrencyPickerCell.xib in Resources */,
 				CA8E31F01F6AE64800BE0F53 /* LaunchScreen.storyboard in Resources */,
 				CA8E31ED1F6AE64800BE0F53 /* Assets.xcassets in Resources */,
 				CA8E31EB1F6AE64800BE0F53 /* Main.storyboard in Resources */,
@@ -147,6 +161,8 @@
 				CAA6236E1F6C063A00BE7F17 /* UIColor+TBColor.swift in Sources */,
 				CA8E31E81F6AE64800BE0F53 /* ViewController.swift in Sources */,
 				CA8E31E61F6AE64800BE0F53 /* AppDelegate.swift in Sources */,
+				CAA623721F6C107E00BE7F17 /* TBCurrencyPickerCell.swift in Sources */,
+				CAA623741F6C37D300BE7F17 /* FlagManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
