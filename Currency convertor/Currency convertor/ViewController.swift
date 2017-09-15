@@ -8,7 +8,8 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate{
+
 
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var pickerFrom: UIPickerView!
@@ -37,13 +38,15 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         self.retrieveListOfCurrencies() { [weak self] (value) in
             DispatchQueue.main.async(execute: {
                 if let strongSelf = self {
-                    strongSelf.label.text = "Тут будет курс"
+                    strongSelf.label.text = value
                     strongSelf.activityIndicator.stopAnimating()
-                    strongSelf.pickerFrom.isHidden = false
-                    strongSelf.pickerTo.isHidden = false
-                    strongSelf.pickerFrom.reloadAllComponents()
-                    strongSelf.pickerTo.reloadAllComponents()
-                    strongSelf.requestCurrentCurrencyRate()
+                    if strongSelf.currencies.count > 2 {
+                        strongSelf.pickerFrom.isHidden = false
+                        strongSelf.pickerTo.isHidden = false
+                        strongSelf.pickerFrom.reloadAllComponents()
+                        strongSelf.pickerTo.reloadAllComponents()
+                        strongSelf.requestCurrentCurrencyRate()
+                    }
                 }
             })
         }
@@ -71,7 +74,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     func requestCurrencyRates(baseCurrency: String, parseHandler: @escaping(Data?, Error?) -> Void) {
 
         let url = URL(string: "https://api.fixer.io/latest?base=" + baseCurrency)!
-
+        
         let dataTask = URLSession.shared.dataTask(with: url) {
             (dataReceived, response, error) in
             parseHandler(dataReceived, error)
@@ -145,23 +148,24 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     }
     
     func requestCurrentCurrencyRate() {
+        if self.currencies.count > 2 {
+            self.activityIndicator.startAnimating()
+            self.label.text = ""
         
-        self.activityIndicator.startAnimating()
-        self.label.text = ""
+            let baseCurrencyIndex = self.pickerFrom.selectedRow(inComponent: 0)
+            let toCurrencyIndex = self.pickerTo.selectedRow(inComponent: 0)
         
-        let baseCurrencyIndex = self.pickerFrom.selectedRow(inComponent: 0)
-        let toCurrencyIndex = self.pickerTo.selectedRow(inComponent: 0)
+            let baseCurrency = self.currencies[baseCurrencyIndex]
+            let toCurrency = self.currenciesExceptBase()[toCurrencyIndex]
         
-        let baseCurrency = self.currencies[baseCurrencyIndex]
-        let toCurrency = self.currenciesExceptBase()[toCurrencyIndex]
-        
-        self.retrieveCurrencyRate(baseCurrency: baseCurrency, toCurrency: toCurrency) { [weak self] (value) in
-            DispatchQueue.main.async(execute: {
-                if let strongSelf = self {
-                    strongSelf.label.text = value
-                    strongSelf.activityIndicator.stopAnimating()
-                }
-            })
+            self.retrieveCurrencyRate(baseCurrency: baseCurrency, toCurrency: toCurrency) { [weak self] (value) in
+                DispatchQueue.main.async(execute: {
+                    if let strongSelf = self {
+                        strongSelf.label.text = value
+                        strongSelf.activityIndicator.stopAnimating()
+                    }
+                })
+            }
         }
     }
     
@@ -187,7 +191,12 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         
         let url = URL(string: "https://api.fixer.io/latest")!
         
-        let dataTask = URLSession.shared.dataTask(with: url) {
+        let configuration = URLSessionConfiguration.default
+        configuration.timeoutIntervalForRequest = TimeInterval(5)
+        configuration.timeoutIntervalForResource = TimeInterval(5)
+        let session = URLSession(configuration: configuration, delegate: self , delegateQueue: OperationQueue())
+        
+        let dataTask = session.dataTask(with: url) {
             (dataReceived, response, error) in
             parseHandler(dataReceived, error)
         }
@@ -221,6 +230,5 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         
         return value
     }
-
 }
 
